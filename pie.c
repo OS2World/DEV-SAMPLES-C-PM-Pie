@@ -15,7 +15,7 @@ HWND    hwndFrame;
 
 #define PIE_CLASSNAME "PIE"
 
-int cdecl main(VOID)
+int main(VOID)
 {
 
    HMQ hmq;
@@ -26,13 +26,13 @@ int cdecl main(VOID)
                            FCF_TASKLIST   | FCF_TITLEBAR      | FCF_SYSMENU |
                            FCF_SIZEBORDER | FCF_MINMAX ;
 
-   hab = WinInitialize( (USHORT)NULL );
+   hab = WinInitialize( 0 );
 
    hmq=WinCreateMsgQueue( hab,0 );
 
 
    WinRegisterClass( hab
-                   , PIE_CLASSNAME
+                   , (PCSZ) PIE_CLASSNAME
                    , (PFNWP)ClientWndProc
                    , (ULONG)CS_SIZEREDRAW
                    , (USHORT)256 );
@@ -40,8 +40,8 @@ int cdecl main(VOID)
    hwndFrame = WinCreateStdWindow( HWND_DESKTOP
                                  ,  0UL
                                  ,  &flCreateFlags
-                                 ,  PIE_CLASSNAME
-                                 ,  "Pie - Partial arc example"
+                                 ,  (PCSZ) PIE_CLASSNAME
+                                 ,  (PCSZ) "Pie - Partial arc example"
                                  ,  WS_VISIBLE
                                  ,  (HMODULE)0
                                  ,  0
@@ -127,6 +127,7 @@ MRESULT EXPENTRY ClientWndProc(HWND hwnd, USHORT msg, MPARAM mp1, MPARAM mp2)
        return( WinDefWindowProc( hwnd, msg, mp1, mp2 )) ;
      }
    }
+   return 0;
 }
 
 // Draw a whole pie chart
